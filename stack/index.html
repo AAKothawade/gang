@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Implementation - HTML, CSS, JS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .stack-item {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 150px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .stack-status {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Stack Implementation</h1>
+        <div class="input-container">
+            <input type="text" id="inputValue" placeholder="Enter value">
+            <button id="pushBtn" onclick="pushToStack()">Push</button>
+        </div>
+
+        <div class="stack">
+            <!-- Stack will be displayed here -->
+        </div>
+
+        <div class="button-container">
+            <button id="popBtn" onclick="popFromStack()" disabled>Pop</button>
+            <button id="topBtn" onclick="topOfStack()" disabled>Top</button>
+            <button id="clearBtn" onclick="clearStack()">Clear Stack</button>
+        </div>
+
+        <div class="stack-status" id="statusMessage">
+            Stack is empty
+        </div>
+    </div>
+
+    <script>
+        const stack = [];
+        const stackContainer = document.querySelector('.stack');
+        const statusMessage = document.getElementById('statusMessage');
+        const pushBtn = document.getElementById('pushBtn');
+        const popBtn = document.getElementById('popBtn');
+        const topBtn = document.getElementById('topBtn');
+        
+        // Function to display the stack visually
+        function displayStack() {
+            stackContainer.innerHTML = '';
+            stack.forEach((item, index) => {
+                const stackItem = document.createElement('div');
+                stackItem.classList.add('stack-item');
+                stackItem.textContent = item;
+                stackContainer.appendChild(stackItem);
+            });
+
+            // Update buttons based on stack state
+            if (stack.length > 0) {
+                popBtn.disabled = false;
+                topBtn.disabled = false;
+                statusMessage.textContent = `Stack has ${stack.length} item(s)`;
+                statusMessage.classList.remove('error');
+            } else {
+                popBtn.disabled = true;
+                topBtn.disabled = true;
+                statusMessage.textContent = 'Stack is empty';
+                statusMessage.classList.add('error');
+            }
+        }
+
+        // Push operation
+        function pushToStack() {
+            const value = document.getElementById('inputValue').value.trim();
+
+            if (value === '') {
+                alert('Please enter a value to push!');
+                return;
+            }
+
+            stack.push(value);
+            displayStack();
+            document.getElementById('inputValue').value = ''; // Clear input
+        }
+
+        // Pop operation
+        function popFromStack() {
+            if (stack.length === 0) return;
+            stack.pop(); // Removes the top element of the stack
+            displayStack();
+        }
+
+        // Top operation to view the top element
+        function topOfStack() {
+            if (stack.length > 0) {
+                alert(`Top of the stack: ${stack[stack.length - 1]}`);
+            } else {
+                alert('Stack is empty');
+            }
+        }
+
+        // Clear the entire stack
+        function clearStack() {
+            stack.length = 0;
+            displayStack();
+        }
+
+        // Initial display
+        displayStack();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAND Gate Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .gate-container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .inputs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .inputs div {
+            text-align: center;
+        }
+
+        .inputs input {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .inputs input:focus {
+            border-color: #007bff;
+        }
+
+        .output {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #e7f3ff;
+            color: #007bff;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .output.inactive {
+            background-color: #fce4ec;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h1>NAND Gate Simulation</h1>
+    <div class="gate-container">
+        <div class="inputs">
+            <div>
+                <label for="inputA">Input A:</label><br>
+                <input type="number" id="inputA" min="0" max="1" value="0">
+            </div>
+            <div>
+                <label for="inputB">Input B:</label><br>
+                <input type="number" id="inputB" min="0" max="1" value="0">
+            </div>
+        </div>
+        <div>
+            Output: <span id="output" class="output inactive">1</span>
+        </div>
+    </div>
+
+    <script>
+        // Get input and output elements
+        const inputA = document.getElementById("inputA");
+        const inputB = document.getElementById("inputB");
+        const output = document.getElementById("output");
+
+        // Function to calculate NAND gate output
+        function calculateNAND() {
+            const a = parseInt(inputA.value) || 0;
+            const b = parseInt(inputB.value) || 0;
+
+            // NAND gate logic: !(A && B)
+            const nandResult = !(a && b) ? 1 : 0;
+
+            // Update output display
+            output.textContent = nandResult;
+            output.classList.toggle("inactive", nandResult === 1);
+        }
+
+        // Attach event listeners to inputs
+        inputA.addEventListener("input", calculateNAND);
+        inputB.addEventListener("input", calculateNAND);
+    </script>
+</body>
+</html>

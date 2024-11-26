@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Wheeler Animation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        /* Two-wheeler container */
+        .bike-container {
+            position: relative;
+            width: 250px;
+            height: 150px;
+            margin-top: 50px;
+            animation: moveBike 5s linear infinite;
+        }
+
+        /* Wheel */
+        .wheel {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Front wheel */
+        .front-wheel {
+            left: 10px;
+            animation: rotateWheel 1s linear infinite;
+        }
+
+        /* Rear wheel */
+        .rear-wheel {
+            right: 10px;
+            animation: rotateWheel 1s linear infinite;
+        }
+
+        /* Bike frame */
+        .bike-frame {
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            background-color: #007bff;
+            border-radius: 10px;
+            top: 40px;
+            left: 25px;
+        }
+
+        /* Bike seat */
+        .seat {
+            position: absolute;
+            top: 20px;
+            left: 70px;
+            width: 60px;
+            height: 20px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        /* Handlebar */
+        .handlebar {
+            position: absolute;
+            top: 10px;
+            left: 120px;
+            width: 50px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            transform: rotate(45deg);
+        }
+
+        /* Engine */
+        .engine {
+            position: absolute;
+            top: 55px;
+            left: 90px;
+            width: 20px;
+            height: 20px;
+            background-color: #f39c12;
+            border-radius: 50%;
+        }
+
+        /* Exhaust */
+        .exhaust {
+            position: absolute;
+            top: 50px;
+            left: 150px;
+            width: 10px;
+            height: 20px;
+            background-color: #7f8c8d;
+            border-radius: 5px;
+        }
+
+        /* Headlight */
+        .headlight {
+            position: absolute;
+            top: 10px;
+            left: 195px;
+            width: 15px;
+            height: 15px;
+            background-color: #f39c12;
+            border-radius: 50%;
+        }
+
+        /* Animation for bike movement */
+        @keyframes moveBike {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* Wheel rotation animation */
+        @keyframes rotateWheel {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Button to stop the animation */
+        .stop-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .stop-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Two-Wheeler Animation</h1>
+        <div class="bike-container">
+            <!-- Wheels -->
+            <div class="wheel front-wheel"></div>
+            <div class="wheel rear-wheel"></div>
+
+            <!-- Bike Frame -->
+            <div class="bike-frame"></div>
+
+            <!-- Bike Seat -->
+            <div class="seat"></div>
+
+            <!-- Handlebar -->
+            <div class="handlebar"></div>
+
+            <!-- Engine -->
+            <div class="engine"></div>
+
+            <!-- Exhaust -->
+            <div class="exhaust"></div>
+
+            <!-- Headlight -->
+            <div class="headlight"></div>
+        </div>
+
+        <!-- Button to stop the animation -->
+        <button class="stop-btn" onclick="stopAnimation()">Stop Animation</button>
+    </div>
+
+    <script>
+        function stopAnimation() {
+            const bike = document.querySelector('.bike-container');
+            bike.style.animationPlayState = 'paused';
+        }
+    </script>
+
+</body>
+</html>

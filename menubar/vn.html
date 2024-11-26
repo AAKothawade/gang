@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Responsive Animated Menu Bar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .menu-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #333;
+      padding: 10px;
+    }
+    .logo {
+      color: white;
+      font-size: 24px;
+    }
+    .menu {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu-item {
+      position: relative;
+    }
+    .menu-item a {
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+    .menu-item:hover a {
+      background: #555;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background: #444;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dropdown-menu li a {
+      padding: 10px 20px;
+    }
+    .dropdown-menu li a:hover {
+      background: #666;
+    }
+    .active {
+      display: flex;
+    }
+    .hamburger-menu {
+      display: none;
+      cursor: pointer;
+      color: white;
+      font-size: 24px;
+    }
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+      }
+      .hamburger-menu {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="menu-bar">
+    <div class="logo">MyLogo</div>
+    <ul class="menu">
+      <li class="menu-item">
+        <a href="#">Home</a>
+      </li>
+      <li class="menu-item dropdown">
+        <a href="#">Services</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">Graphic Design</a></li>
+          <li><a href="#">SEO Services</a></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="#">Portfolio</a>
+      </li>
+      <li class="menu-item dropdown">
+        <a href="#">About Us</a>
+        <ul class="dropdown-menu">
+          <li><a href="vn.html">Our Team</a></li>
+          <li><a href="#">Our Vision</a></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="#">Contact</a>
+      </li>
+    </ul>
+    <div class="hamburger-menu">
+      ☰
+    </div>
+  </nav>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger-menu');
+    const menu = document.querySelector('.menu');
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+
+    dropdowns.forEach(dropdown => {
+      const link = dropdown.querySelector('a');
+      link.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        dropdownMenu.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive DOM Tree</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .tree-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin: 10px 0;
+            border-left: 2px solid #ddd;
+        }
+
+        li {
+            margin: 5px 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #e6f7ff;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        li:hover {
+            background-color: #bae7ff;
+            transform: scale(1.03);
+        }
+
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive DOM Tree Viewer</h1>
+    <div id="nestedControls" class="tree-container">
+        <div>
+            <h2>Header</h2>
+            <p>This is a paragraph inside a div.</p>
+            <ul>
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+            <button class="btn">Click Me</button>
+        </div>
+    </div>
+
+    <h2>Generated DOM Tree:</h2>
+    <div class="tree-container" id="domTreeContainer">
+        <p>Click "Click Me" to generate the DOM tree.</p>
+    </div>
+
+    <script>
+        /**
+         * Recursively generates a DOM tree representation.
+         * @param {HTMLElement} element - The element to process.
+         * @returns {HTMLUListElement} - The tree structure as an unordered list.
+         */
+        function generateDomTree(element) {
+            const ul = document.createElement('ul');
+
+            Array.from(element.children).forEach(child => {
+                const li = document.createElement('li');
+                li.textContent = child.tagName.toLowerCase();
+                const childTree = generateDomTree(child);
+                if (childTree.children.length > 0) {
+                    li.appendChild(childTree);
+                }
+                ul.appendChild(li);
+            });
+
+            return ul;
+        }
+
+        // Add event listener to the button
+        document.querySelector('.btn').addEventListener('click', () => {
+            const nestedControls = document.getElementById('nestedControls');
+            const domTreeContainer = document.getElementById('domTreeContainer');
+
+            // Clear previous tree
+            domTreeContainer.innerHTML = '';
+
+            // Generate and display the DOM tree
+            const domTree = generateDomTree(nestedControls);
+            domTreeContainer.appendChild(domTree);
+        });
+    </script>
+</body>
+</html>
